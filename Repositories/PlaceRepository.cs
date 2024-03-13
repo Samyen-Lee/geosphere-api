@@ -12,9 +12,15 @@ namespace geosphere_api.Repositories
         {
             this._context = dataContext;
         }
-        public Place GetPlaceWithCoordinates(float[] coordinates)
+
+        public async Task<Place> GetPlace(Place feature)
         {
-            return _context.Places.Include(p => p.Ressources).Where(p => p.Coordinates == coordinates).FirstOrDefault();
+            return await _context.Places.Include(p => p.Ressources).Where(p => p.Name == feature.Name && p.Subdivision == feature.Subdivision && p.Country == feature.Country && p.Category == feature.Category).FirstOrDefaultAsync();
         }
+
+        //public async Task<Place> GetPlaceWithCoordinates(float[] coordinates)
+        //{
+        //    return await _context.Places.Include(p => p.Ressources).Where(p => p.Coordinates == coordinates).FirstOrDefaultAsync();
+        //}
     }
 }

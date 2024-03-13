@@ -4,6 +4,8 @@ namespace geosphere_api.Interfaces
 {
     public interface IPlaceRepository
     {
-        Place GetPlaceWithCoordinates(float[] coordinates);
+        //Task<Place> GetPlaceWithCoordinates(float[] coordinates);
+
+        Task<Place> GetPlace(Place feature);
     }
 }

@@ -18,11 +18,25 @@ namespace geosphere_api.Controllers
             this._mapper = mapper;
         }
 
-        [HttpGet("{lng}/{lat}")]
+        //[HttpGet("{lng}/{lat}")]
+        //[ProducesResponseType(200, Type = typeof(PlaceDto))]
+        //public async Task<IActionResult> GetPlaceWithCoodinates(float lng, float lat)
+        //{
+        //    var place = _mapper.Map<PlaceDto>(await _placeRepository.GetPlaceWithCoordinates([lng, lat]));
+
+        //    if (!ModelState.IsValid)
+        //        return BadRequest(ModelState);
+
+        //    if (place is null) return NotFound();
+
+        //    return Ok(place);
+        //}
+
+        [HttpGet("")]
         [ProducesResponseType(200, Type = typeof(PlaceDto))]
-        public IActionResult GetPlaceWithCoodinates(float lng, float lat)
+        public async Task<IActionResult> GetPlace([FromQuery] Place feature)
         {
-            var place = _mapper.Map<PlaceDto>(_placeRepository.GetPlaceWithCoordinates([lng, lat]));
+            var place = _mapper.Map<PlaceDto>(await _placeRepository.GetPlace(feature));
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

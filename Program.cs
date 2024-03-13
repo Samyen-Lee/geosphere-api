@@ -3,7 +3,18 @@ using geosphere_api.Interfaces;
 using geosphere_api.Repositories;
 using Microsoft.EntityFrameworkCore;
 
+var AllowedOrigins = "_allowedOrigins";
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: AllowedOrigins,
+                      policy =>
+                      {
+                          policy.WithOrigins("http://localhost:6006");
+                      });
+});
 
 // Add services to the container.
 builder.Services.AddTransient<Seed>();
@@ -45,6 +56,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(AllowedOrigins);
 
 app.UseAuthorization();
 
