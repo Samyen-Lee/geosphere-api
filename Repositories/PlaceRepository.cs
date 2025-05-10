@@ -1,5 +1,5 @@
 ﻿using geosphere_api.Data;
-using geosphere_api.Interfaces;
+using geosphere_api.Interfaces.Repositories;
 using geosphere_api.Models;
 using Microsoft.EntityFrameworkCore;
 

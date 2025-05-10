@@ -1,5 +1,8 @@
+using dotenv.net;
 using geosphere_api.Data;
+using geosphere_api.Helpers;
 using geosphere_api.Interfaces;
+using geosphere_api.Interfaces.Repositories;
 using geosphere_api.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,9 +19,12 @@ builder.Services.AddCors(options =>
                       });
 });
 
+DotEnv.Load(options: new DotEnvOptions(probeForEnv: true));
+
 // Add services to the container.
 builder.Services.AddTransient<Seed>();
 builder.Services.AddScoped<IPlaceRepository, PlaceRepository>();
+builder.Services.AddScoped<IMediaService, MediaManager>();
 
 builder.Services.AddControllers();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -29,7 +35,7 @@ builder.Services.AddSwaggerGen();
 // Add database connection
 builder.Services.AddDbContext<DataContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("RDS"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
 var app = builder.Build();

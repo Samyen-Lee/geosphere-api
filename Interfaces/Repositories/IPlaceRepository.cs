@@ -1,6 +1,6 @@
 ﻿using geosphere_api.Models;
 
-namespace geosphere_api.Interfaces
+namespace geosphere_api.Interfaces.Repositories
 {
     public interface IPlaceRepository
     {
